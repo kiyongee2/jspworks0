@@ -1,4 +1,4 @@
-<%@page import="java.time.format.DateTimeFormatter"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
 <%@ page import="java.time.LocalDateTime"%>
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>

@@ -7,6 +7,7 @@
 <title>시간이란...</title>
 <style>
 	#content{width: 90%; margin: 20px auto; text-align: center;}
+	h2{color: #00f;}
 </style>
 <script>
 	//디지털 시계
