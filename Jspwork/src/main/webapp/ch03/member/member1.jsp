@@ -1,16 +1,15 @@
-<%@ page import="java.net.URLDecoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Java Beans</title>
 </head>
 <body>
-	<%
-		String id = request.getParameter("id");
-	%>
-	<p>아이디: <%=URLDecoder.decode(id) %></p>
+	<jsp:useBean id="member" class="beans.MemberBean" />
+	
+	<p>아이디: <%=member.getId() %> </p>
+	<p>이  름: <%=member.getName() %> </p>
 </body>
 </html>
