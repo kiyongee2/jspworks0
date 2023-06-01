@@ -8,7 +8,7 @@
 	String pwd = request.getParameter("passwd");
 	
 	if(id.equals("admin") && pwd.equals("1234")){
-		//out.println("로그인 성공!");
+		out.println("로그인 성공!");
 		//페이지 이동
 		response.sendRedirect("loginSuccess.jsp");
 	}else{
