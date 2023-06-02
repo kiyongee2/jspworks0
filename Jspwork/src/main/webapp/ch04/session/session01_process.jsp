@@ -4,7 +4,7 @@
 	String userId = request.getParameter("userid");
 	String userPw = request.getParameter("passwd");
     
-	if(userId.equals("corona") && userPw.equals("2019")){
+	if(userId.equals("today") && userPw.equals("2023")){
 		session.setAttribute("userId", userId); //세션 발급(아이디)
 		session.setAttribute("userPw", userPw); //세션 발급(비밀번호)
 		//out.println("로그인을 성공했습니다.");
