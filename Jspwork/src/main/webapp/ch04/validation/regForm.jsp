@@ -35,6 +35,7 @@
 			<p>이름: <span id="rname"></span></p>
 			<p>이메일: <span id="rmail"></span></p>
 		</div>
+		<!-- 가입 정보 숨기기 -->
 		<script>
 			document.getElementById('result').style.display = "none"; 
 		</script>

@@ -7,6 +7,7 @@
 <title>유효성 검사</title>
 <script type="text/javascript">
 	function checkForm(){
+		//name 속성을 사용
 		let form = document.loginForm;
 		let userid = form.userid;
 		let passwd = form.passwd;
