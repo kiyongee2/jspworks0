@@ -9,3 +9,25 @@ ul li{list-style: none;}
 h2{text-align: center;}
 #main{margin: 20px auto; text-align: center;}
 #main .main_img{margin: 20px auto;}
+#main .main_img img{border-radius: 5px;}
+
+/* memberList 스타일  */
+#memberlist{width: 550px; margin: 40px auto;}
+#memberlist table{width: 550px; margin: 30px auto;}
+#memberlist table, th, td{border: 1px solid #ccc; 
+	border-collapse: collapse; text-align: center;}
+#memberlist table th, td{padding: 10px 0; font-size: 0.9em;}
+#memberlist table thead{background: #eee;}
+
+/* register 스타일 */
+#register{width: 400px; margin: 30px auto;}
+#register form{margin: 30px auto;}
+#register form fieldset{padding-bottom: 20px;}
+#register form ul li{margin: 30px 20px;}
+
+
+
+
+
+
+

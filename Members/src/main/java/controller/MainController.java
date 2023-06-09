@@ -40,15 +40,14 @@ public class MainController extends HttpServlet {
 		
 		String nextPage = null;
 		
-		//회원 목록 조회
-		if(command.equals("/memberList.do")) {
-			
+		if(command.equals("/memberList.do")) { //회원 목록 조회
 			ArrayList<Member> memberList = memberDAO.getMemberList();
 			
 			//모델 생성 및 보내기
 			request.setAttribute("memberList", memberList);
-			
 			nextPage = "memberList.jsp";
+		}else if(command.equals("/memberForm.do")) {
+			nextPage = "memberForm.jsp";
 		}
 		
 		//포워딩
