@@ -30,6 +30,8 @@ public class MainController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//한글 인코딩
+		request.setCharacterEncoding("utf-8");
 		
 		//command 패턴으로 url 설정하기
 		String uri = request.getRequestURI();
@@ -48,6 +50,21 @@ public class MainController extends HttpServlet {
 			nextPage = "memberList.jsp";
 		}else if(command.equals("/memberForm.do")) {
 			nextPage = "memberForm.jsp";
+		}else if(command.equals("/addMember.do")) {
+			//폼에 입력된 데이터 받기
+			String memberId = request.getParameter("memberId");
+			String passwd = request.getParameter("passwd1");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			Member newMember = new Member();  //회원 객체 생성
+			newMember.setMemberId(memberId);
+			newMember.setPasswd(passwd);
+			newMember.setName(name);
+			newMember.setGender(gender);
+			
+			memberDAO.addMember(newMember); //회원 매개로 DB에 저장
+			nextPage = "index.jsp";
 		}
 		
 		//포워딩
