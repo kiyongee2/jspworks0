@@ -1,0 +1,11 @@
+@charset "UTF-8";
+/* 공통 스타일 */
+*{margin: 0; padding: 0;}
+#container{width: 90%; margin: 50px auto;}
+a{text-decoration: none;}
+ul li{list-style: none;}
+
+/* index 스타일 */
+h2{text-align: center;}
+#main{margin: 20px auto; text-align: center;}
+#main .main_img{margin: 20px auto;}
