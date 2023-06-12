@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
+	<jsp:include page="../header.jsp" />
 	<div id="container">
 	   <section id="memberlist">
 		<h2>회원 목록</h2>

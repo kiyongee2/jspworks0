@@ -47,9 +47,9 @@ public class MainController extends HttpServlet {
 			
 			//모델 생성 및 보내기
 			request.setAttribute("memberList", memberList);
-			nextPage = "memberList.jsp";
+			nextPage = "member/memberList.jsp";
 		}else if(command.equals("/memberForm.do")) {
-			nextPage = "memberForm.jsp";
+			nextPage = "member/memberForm.jsp";
 		}else if(command.equals("/addMember.do")) {
 			//폼에 입력된 데이터 받기
 			String memberId = request.getParameter("memberId");

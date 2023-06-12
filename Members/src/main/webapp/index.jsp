@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
+	<jsp:include page="header.jsp" />
 	<div id="container">
 	   <section id="main">
 		   <h2>안녕하세요~ 강남 커뮤니티입니다.</h2>
