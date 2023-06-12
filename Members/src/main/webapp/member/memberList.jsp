@@ -27,7 +27,10 @@
 			<tbody>
 				<c:forEach var="member" items="${memberList}">
 				<tr>
-					<td><c:out value="${member.memberId}" /> </td>
+					<td>
+						<a href="/memberView.do?memberId=${member.memberId}">
+							<c:out value="${member.memberId}" /></a>
+					</td>
 					<td><c:out value="${member.passwd}" /> </td>
 					<td><c:out value="${member.name}" /> </td>
 					<td><c:out value="${member.gender}" /> </td>

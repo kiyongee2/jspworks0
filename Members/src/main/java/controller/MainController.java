@@ -65,6 +65,16 @@ public class MainController extends HttpServlet {
 			
 			memberDAO.addMember(newMember); //회원 매개로 DB에 저장
 			nextPage = "index.jsp";
+		}else if(command.equals("/memberView.do")) { //회원 정보 요청
+			
+			//memberId 받기
+			String memberId = request.getParameter("memberId");
+			
+			Member member = memberDAO.getMember(memberId);
+			
+			request.setAttribute("member", member);  //member 모델 생성
+			
+			nextPage = "member/memberView.jsp";
 		}
 		
 		//포워딩

@@ -34,7 +34,7 @@ h2{text-align: center;}
 #memberlist table thead{background: #eee;}
 
 /* register 스타일 */
-#register{width: 400px; margin: 30px auto;}
+#register{width: 450px; margin: 30px auto;}
 #register form{margin: 30px auto;}
 #register form fieldset{padding-bottom: 20px;}
 #register form ul li{margin: 30px 20px;}
@@ -47,7 +47,14 @@ h2{text-align: center;}
 #register form input[type='submit']{width: 80px; height: 30px; margin-top: 30px;}
 #register form input[type='reset']{width: 80px; height: 30px; margin-top: 30px;}
 
-
+/* detail 스타일 */
+#detail{width: 400px; margin: 30px auto 100px;}
+#detail table{width: 400px; margin: 30px auto;}
+#detail table, td{border: 1px solid #ccc;
+    border-collapse: collapse; text-align: center;}
+#detail table td{padding: 10px 0; font-size: 0.9em;}
+#detail table input[type='text'], input[type='password']{width: 200px; padding: 5px;}
+#detail table td button{padding: 5px 10px;}
 
 
 
