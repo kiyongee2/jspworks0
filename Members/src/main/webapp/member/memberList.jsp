@@ -10,6 +10,12 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
+	<c:if test="${empty sessionId}">
+		<script>
+			alert("로그인을 해주세요");
+			location.href = "/loginForm.do";  //페이지 이동
+		</script>
+	</c:if>
 	<jsp:include page="../header.jsp" />
 	<div id="container">
 	   <section id="memberlist">
@@ -44,5 +50,6 @@
 		</table>
 		</section>
 	</div>
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>

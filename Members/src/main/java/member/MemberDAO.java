@@ -83,6 +83,27 @@ public class MemberDAO {
 		}
 		return member;
 	}
+	
+	//로그인 체크
+	public boolean checkLogin(Member member) {
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT * FROM t_member "
+				+ "WHERE memberid = ? and passwd = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getMemberId());
+			pstmt.setString(2, member.getPasswd());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return false;
+	}
 }
 
 

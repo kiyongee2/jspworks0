@@ -12,7 +12,7 @@
 	<div id="container">
 		<section id="register">
 			<h2>회원 가입</h2>
-			<form action="addMember.do" method="post">
+			<form action="/addMember.do" method="post">
 				<fieldset>
 					<ul>
 						<li>
@@ -49,5 +49,6 @@
 			</form>
 		</section>
 	</div>
+	<jsp:include page="../footer.jsp" />
 </body>
 </html>
