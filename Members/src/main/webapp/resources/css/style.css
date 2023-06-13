@@ -35,11 +35,13 @@ footer{height: 80px; border-top: 2px solid #222;}
 
 /* memberList 스타일  */
 #memberlist{width: 550px; margin: 40px auto;}
-#memberlist table{width: 550px; margin: 30px auto;}
+#memberlist .logout{text-align: right; margin-right: 5%}
+#memberlist table{width: 550px; margin: 15px auto 100px;}
 #memberlist table, th, td{border: 1px solid #ccc; 
 	border-collapse: collapse; text-align: center;}
 #memberlist table th, td{padding: 10px 0; font-size: 0.9em;}
 #memberlist table thead{background: #eee;}
+#memberlist table td:nth-of-type(6){width: 60px;}
 
 /* register 스타일 */
 #register{width: 450px; margin: 30px auto;}
@@ -67,6 +69,7 @@ footer{height: 80px; border-top: 2px solid #222;}
 /* 로그인 스타일 */
 #login {width: 450px; margin: 30px auto 100px;}
 #login form{margin: 30px auto;}
+#login .error{color: #f00; margin-bottom: 15px;}
 #login form ul li{margin: 30px;}
 #login form ul li:nth-of-type(3){text-align: center; margin-left: 0}
 #login form label{width: 100px; float: left; padding-left: 10px;}
@@ -101,6 +104,7 @@ footer{height: 80px; border-top: 2px solid #222;}
 #board_detail table input[type='text']{width: 520px; height: 25px; 
 	padding: 5px;}
 #board_detail table tr:nth-of-type(3) td{text-align: left; padding-left: 10px;}
+#board_detail table tr:nth-of-type(4) td{text-align: left; padding-left: 10px;}
 #board_detail table textarea{width: 520px; height: 350px; resize: none; 
 	padding: 5px; line-height: 1.5; font-family: '맑은고딕'}
 #board_detail table button[type='button']{width: 80px; height: 30px;}

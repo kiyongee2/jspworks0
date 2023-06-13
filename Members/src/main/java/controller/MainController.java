@@ -115,10 +115,14 @@ public class MainController extends HttpServlet {
 				out.println("history.go(-1)"); //이전 페이지로 이동
 				out.println("</script>");
 			}
-		} else if(command.equals("/logout.do")) {
+		} else if(command.equals("/logout.do")) {//로그아웃 요청
 			//세션 모두 삭제(해제)
 			session.invalidate();
 			nextPage = "/index.jsp";
+		} else if(command.equals("/deleteMember.do")) { //회원 삭제 요청
+			String memberId = request.getParameter("memberId");
+			memberDAO.deleteMember(memberId); //회원 삭제 처리
+			nextPage = "/memberList.do";
 		}
 		
 		//게시판 관리
@@ -151,6 +155,10 @@ public class MainController extends HttpServlet {
 			request.setAttribute("board", board);
 			
 			nextPage = "/board/boardView.jsp";
+		}else if(command.equals("/deleteBoard.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			boardDAO.deleteBoard(bnum); //게시글 삭제
+			nextPage = "/board/boardList.jsp";  //삭제 후 게시글 목록 이동
 		}
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()

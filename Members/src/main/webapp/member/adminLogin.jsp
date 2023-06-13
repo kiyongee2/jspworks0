@@ -12,17 +12,25 @@
 	<div id="container">
 		<section id="login">
 			<h2>로그인</h2>
-			<form action="/loginProcess.do" method="post">
+			<form action="j_security_check" method="post">
+				<%
+					String error = request.getParameter("error");
+					if(error != null){
+						out.println("<div class='error'>");
+						out.println("아이디와 비밀번호를 확인해 주세요.");
+						out.println("</div>");
+					}
+				%>
 				<fieldset>
 					<ul>
 						<li>
 							<label for="memberId">아이디 </label>
-							<input type="text" id="memberId" name="memberId"
+							<input type="text" id="memberId" name="j_username"
 								placeholder="ID" required="required" autofocus>
 						</li>
 						<li>
 							<label for="passwd">비밀번호 </label>
-							<input type="password" id="passwd" name="passwd"
+							<input type="password" id="passwd" name="j_password"
 								placeholder="PASSWORD" required="required">
 						</li>		
 					</ul>
