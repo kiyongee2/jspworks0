@@ -12,7 +12,7 @@
 <body>
 	<jsp:include page="../header.jsp" />
 	<div id="container">
-		<section id="board_detail">
+		<section id="board_update">
 			<h2>게시글 수정</h2>
 			<form action="/updateProcess.do" method="post">
 				<input type="hidden" name="bnum" value="${board.bnum}">

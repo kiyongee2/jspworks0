@@ -123,6 +123,8 @@ public class MainController extends HttpServlet {
 			String memberId = request.getParameter("memberId");
 			memberDAO.deleteMember(memberId); //회원 삭제 처리
 			nextPage = "/memberList.do";
+		} else if(command.equals("/memberEvent.do")) { 
+			nextPage = "/member/memberEvent.jsp";
 		}
 		
 		//게시판 관리
