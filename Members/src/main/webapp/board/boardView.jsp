@@ -40,8 +40,11 @@
 					</tr>
 					<tr>
 						<td>
+					
 							<c:if test="${board.memberId == sessionId}">
-								<button type="button">수정</button>
+								<a href="/updateBoard.do?bnum=${board.bnum}">
+									<button type="button">수정</button>
+								</a>
 								<a href="/deleteBoard.do?bnum=${board.bnum}"
 								   onclick="return confirm('정말로 삭제하시겠습니까?')">
 									<button type="button">삭제</button>

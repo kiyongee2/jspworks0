@@ -159,6 +159,24 @@ public class MainController extends HttpServlet {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			boardDAO.deleteBoard(bnum); //게시글 삭제
 			nextPage = "/board/boardList.jsp";  //삭제 후 게시글 목록 이동
+		}else if(command.equals("/updateBoard.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			Board board = boardDAO.getBoard(bnum); //게시글 상세 보기
+			request.setAttribute("board", board);
+			nextPage = "/board/updateBoard.jsp";
+		}else if(command.equals("/updateProcess.do")) {
+			//수정 폼에서 입력 내용 받기
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			String title = request.getParameter("title");
+			String content = request.getParameter("content");
+			
+			Board updateBoard = new Board();
+			updateBoard.setTitle(title);
+			updateBoard.setContent(content);
+			updateBoard.setBnum(bnum);
+			
+			boardDAO.updateBoard(updateBoard); //수정 처리
+			nextPage = "/boardList.do";
 		}
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()
