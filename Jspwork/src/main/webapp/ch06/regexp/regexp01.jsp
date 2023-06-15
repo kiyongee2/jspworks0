@@ -53,7 +53,7 @@
 		</p>
 		<p>
 			<label for="passwd">비밀번호 </label>
-			<input type="password" id="passwd" name="passwd">
+			<input type="text" id="passwd" name="passwd">
 		</p>
 		<p>
 			<label for="uname">이름 </label>
