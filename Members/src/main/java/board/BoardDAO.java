@@ -16,7 +16,41 @@ public class BoardDAO {
 	private ResultSet rs = null;
 	
 	//게시글 목록
-	public ArrayList<Board> getBoardList(){
+	public ArrayList<Board> getBoardList(int page){
+		ArrayList<Board> boardList = new ArrayList<>();
+		int pageSize = 10;
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT * "
+				+ "FROM (SELECT ROWNUM RN, t_board.* "
+				+ "FROM t_board ORDER BY bnum DESC) "
+				+ "WHERE RN >= ? AND RN <= ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, (page-1)*pageSize + 1);  //시작행
+			pstmt.setInt(2, page*pageSize);  //페이지x페이지당 게시글 수
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Board board = new Board();
+				board.setBnum(rs.getInt("bnum"));
+				board.setTitle(rs.getString("title"));
+				board.setContent(rs.getString("content"));
+				board.setRegDate(rs.getTimestamp("regdate"));
+				board.setModifyDate(rs.getTimestamp("modifydate"));
+				board.setHit(rs.getInt("hit"));
+				board.setMemberId(rs.getString("memberid"));
+				
+				boardList.add(board);  //개별 board 객체를 추가 저장
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return boardList;
+	}
+	
+	//게시글 목록
+	/*public ArrayList<Board> getBoardList(){
 		ArrayList<Board> boardList = new ArrayList<>();
 		conn = JDBCUtil.getConnection();
 		String sql = "SELECT * FROM t_board ORDER BY regdate DESC";
@@ -41,6 +75,24 @@ public class BoardDAO {
 			JDBCUtil.close(conn, pstmt, rs);
 		}
 		return boardList;
+	}*/
+	
+	//게시글 총 개수
+	public int getBoardCount() {
+		int total = 0;
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT COUNT(*) AS total FROM t_board";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				total = rs.getInt("total");  //db에서 총개수 반환
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return total;
 	}
 	
 	//게시글 쓰기
