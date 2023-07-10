@@ -41,10 +41,41 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		
 		<!-- 페이지 처리 영역 -->
-		<c:forEach var="i" begin="1" end="${endPage}">
-			<a href="/boardList.do?pageNum=${i}">${i}</a>
-		</c:forEach>
+		${endPage} ${total}
+		<div class="pagination">
+			<!-- 이전 페이지 -->
+			<c:if test="${startPage > 1}">
+				<a href="/boardList.do?pageNum=${startPage-1}">이전</a>
+			</c:if>
+			<c:if test="${startPage == 1}">
+				<a href="">이전</a>
+			</c:if>
+			
+			<!-- 페이지 리스트 -->
+			<c:forEach var="i" begin="1" end="${endPage}">
+			
+				<c:if test="${currentPage == i}">
+					<a href="/boardList.do?pageNum=${i}">
+						<span class='page'>${i}</span>
+					</a>
+				</c:if>
+				<c:if test="${currentPage != i}">
+					<a href="/boardList.do?pageNum=${i}">${i}</a>
+				</c:if>
+			</c:forEach>
+			
+			
+			<!-- 다음 페이지 -->
+			<c:if test="${endPage > startPage}">
+			   <a href="/boardList.do?pageNum=${startPage+1}">다음</a>
+			</c:if>
+			<c:if test="${endPage == startPage}">
+				<a href="">다음</a>
+			</c:if>
+		</div>
+		
 		<!-- 글쓰기 버튼 -->
 		<div class="btnWrite">
 			<a href="/boardForm.do">

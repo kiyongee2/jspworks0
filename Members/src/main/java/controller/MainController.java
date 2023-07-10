@@ -152,7 +152,7 @@ public class MainController extends HttpServlet {
 			int total = boardDAO.getBoardCount(); //총행수가 나누어 떨어지면 않으면 페이지수에 1을 더함
 			//int endPage = toatal / pageSize -> 3page
 			int endPage = total / pageSize;  //총행수 / 페이지당 행의 수
-			endPage = (endPage % pageSize == 0) ? endPage : endPage + 1;
+			endPage = (total % 10 == 0) ? endPage : endPage + 1;
 			
 			//게시글 목록보기 함수 호출
 			ArrayList<Board> boardList = boardDAO.getBoardList(currentPage);
@@ -160,8 +160,8 @@ public class MainController extends HttpServlet {
 			//모델 생성
 			request.setAttribute("boardList", boardList);
 			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
-			
 			
 			nextPage = "/board/boardList.jsp";
 		}else if(command.equals("/boardForm.do")) {
