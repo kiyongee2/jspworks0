@@ -18,8 +18,6 @@ public class BoardDAO {
 	//게시글 목록
 	public ArrayList<Board> getBoardList(int page){
 		ArrayList<Board> boardList = new ArrayList<>();
-		//int pageSize = 10;
-		
 		try {
 			conn = JDBCUtil.getConnection();
 			String sql = "SELECT * "
