@@ -43,7 +43,6 @@
 		</table>
 		
 		<!-- 페이지 처리 영역 -->
-		${endPage} ${total}
 		<div class="pagination">
 			<!-- 이전 페이지 -->
 			<c:if test="${startPage > 1}">

@@ -16,18 +16,14 @@ public class BoardDAO {
 	private ResultSet rs = null;
 	
 	//게시글 목록
-	public ArrayList<Board> getBoardList(int page){
+	public ArrayList<Board> getBoardList(int startRow, int pageSize){
 		ArrayList<Board> boardList = new ArrayList<>();
-		//int pageSize = 10;
-		
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT * "
-					+ "FROM (SELECT ROWNUM rn, t_board.* FROM t_board ORDER BY bnum DESC) "
-					+ "WHERE rn >= ? AND rn <= ?";
+			String sql = "select * from t_board order by bnum desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, (page-1)*10 + 1);  //시작행
-			pstmt.setInt(2, page*10);  //페이지x페이지당 게시글 수
+			pstmt.setInt(1, startRow-1);  //시작행(limit는 시작행 0, 10, 20)
+			pstmt.setInt(2, pageSize);  //페이지당 게시글수(10)
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				Board board = new Board();
@@ -98,8 +94,8 @@ public class BoardDAO {
 	//게시글 쓰기
 	public void addBoard(Board board) {
 		conn = JDBCUtil.getConnection();
-		String sql = "INSERT INTO t_board(bnum, title, content, memberid, fileupload) "
-				+ "VALUES (b_seq.NEXTVAL, ?, ?, ?, ?)";
+		String sql = "INSERT INTO t_board(title, content, memberid, fileupload) "
+				+ "VALUES (?, ?, ?, ?)";
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, board.getTitle());

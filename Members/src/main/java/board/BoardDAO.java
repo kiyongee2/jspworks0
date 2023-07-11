@@ -23,8 +23,9 @@ public class BoardDAO {
 		try {
 			conn = JDBCUtil.getConnection();
 			String sql = "SELECT * "
-					+ "FROM (SELECT ROWNUM rn, t_board.* FROM t_board ORDER BY bnum DESC) "
-					+ "WHERE rn >= ? AND rn <= ?";
+					+ "FROM (SELECT ROWNUM rn, board.* "
+					+ "            FROM(SELECT * FROM t_board ORDER BY bnum DESC) board) "
+					+ "WHERE rn >= ? AND RN <= ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, (page-1)*10 + 1);  //시작행
 			pstmt.setInt(2, page*10);  //페이지x페이지당 게시글 수
