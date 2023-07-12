@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,31 +9,41 @@
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
+	<!-- 다국어 Locale 설정 -->
+	<fmt:setLocale value="${param.language}"/>
+	<fmt:bundle basename="bundle.message">
+	
 	<jsp:include page="../header.jsp" />
 	<div id="container">
 		<section id="login">
-			<h2>로그인</h2>
+			<!-- 다국어 메뉴 영역 -->
+			<div class="language">
+				<a href="?language=ko">한국어</a> | 
+				<a href="?language=en">English</a>
+			</div>
+			<h2><fmt:message key="login.title" /></h2>
 			<form action="/loginProcess.do" method="post">
 				<fieldset>
 					<ul>
 						<li>
-							<label for="memberId">아이디 </label>
+							<label for="memberId"><fmt:message key="login.id" /> </label>
 							<input type="text" id="memberId" name="memberId"
 								placeholder="ID" required="required" autofocus>
 						</li>
 						<li>
-							<label for="passwd">비밀번호 </label>
+							<label for="passwd"><fmt:message key="login.passwd" /> </label>
 							<input type="password" id="passwd" name="passwd"
 								placeholder="PASSWORD" required="required">
 						</li>		
 					</ul>
 				</fieldset>
 			<div class="button">
-				<input type="submit" value="로그인">
+				<input type="submit" value="<fmt:message key='login.button' />">
 			</div>
 			</form>
 		</section>
 	</div>
 	<jsp:include page="../footer.jsp" />
+	</fmt:bundle>
 </body>
 </html>
