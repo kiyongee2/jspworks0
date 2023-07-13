@@ -24,6 +24,10 @@ h2{text-align: center;}
 #main{margin: 20px auto; text-align: center;}
 #main .main_img{margin: 20px auto;}
 #main .main_img img{border-radius: 5px;}
+#main .newBoard{width: 600px; margin: 30px auto; text-align: left;}
+#main .newBoard h3{margin-bottom: 10px; padding-bottom: 10px; 
+   border-bottom: 1px solid #ccc;}
+#main .newBoard p{line-height: 2; padding-left: 10px;}
 
 /* footer 스타일 */
 footer{height: 80px; border-top: 2px solid #222;}
@@ -127,7 +131,12 @@ footer{height: 80px; border-top: 2px solid #222;}
 #board_detail .reply{border-top: 1px dotted #ccc; padding: 10px 0;
 	line-height: 1.5; margin-top: 12px;}
 #board_detail .reply p{color: #444; font-size: 0.9em;}
+#board_detail .reply p:nth-of-type(1){color: #444; font-size: 0.9em;}
 #board_detail .reply p:nth-of-type(2){margin-top: 16px;}
+#board_detail #replyForm p:nth-of-type(1){border-top: 1px dotted #ccc;
+	padding-top: 5px;}
+#board_detail #replyForm textarea{margin: 10px 0; padding: 5px; resize: none;}
+#board_detail #replyForm button{padding: 4px 8px;}
 #board_detail .replyLogin{background-color: #eee; padding: 16px;
 	text-align: center;}
 #board_detail .replyLogin a{color: blue;}

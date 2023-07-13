@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,6 +10,12 @@
 <title>게시글 상세 보기</title>
 <link rel="stylesheet" href="resources/css/style.css">
 </head>
+<%
+	/* pageContext - 페이지 범위 안에서 저장 기능 */
+	pageContext.setAttribute("LF", "\n");  //엔터를 치면 아스키코드 LF(Line Feed)
+	pageContext.setAttribute("BR", "<br>");
+
+%>
 <body>
 	<jsp:include page="../header.jsp" />
 	<div id="container">
@@ -69,13 +76,16 @@
 			<h3><i class="fa-solid fa-pen-to-square"></i> 댓글</h3>
 			<c:forEach items="${replyList}" var="reply">
 			<div class="reply">
-				<p>${reply.rcontent} </p>
-				<p>작성자: ${reply.replyer} (작성일: ${reply.rdate}) </p>
+				<!-- 댓글 내용 줄바꿈 -->
+				<p><c:out value="${fn:replace(reply.rcontent, LF, BR)}" 
+							escapeXml="false" />
+				<%-- <p>${reply.rcontent}</p> --%>
+				<p>작성자: ${reply.replyer} (작성일: ${reply.rdate})
 			</div>
 			</c:forEach>
 			<!-- 댓글 등록 -->
 			<c:if test="${not empty sessionId}">
-				<form action="/addReply.do" method="post">
+				<form action="/addReply.do" method="post" id="replyForm">
 					<p>${sessionId}</p> <!-- replyer -->
 					<p><input type="hidden" name="bnum" value="${board.bnum}">
 					<p><input type="hidden" name="replyer" value="${sessionId}">

@@ -4,7 +4,7 @@
 <script src="https://kit.fontawesome.com/187dabceeb.js" crossorigin="anonymous"></script>
 <header>
 	<div id="logo">
-		<h1><a href="index.jsp">Gangnam</a></h1>
+		<h1><a href="/">Gangnam</a></h1>
 	</div>
 	<nav>
 		<c:choose>

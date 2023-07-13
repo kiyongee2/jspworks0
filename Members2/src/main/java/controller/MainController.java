@@ -65,7 +65,20 @@ public class MainController extends HttpServlet {
 		//세션 객체 생성
 		HttpSession session = request.getSession();
 		
-		if(command.equals("/memberList.do")) { //회원 목록 조회
+		if(command.equals("/index.do")) {
+			//게시글 가져오기
+			ArrayList<Board> boardList = boardDAO.getBoardList();
+			int size = boardList.size(); //게시글의 총수
+			//최신 글 3개를 담은 배열 생성
+			Board[] newBoardList = {boardList.get(size-1), boardList.get(size-2), 
+					boardList.get(size-3)};
+			
+			//모델 생성
+			request.setAttribute("boardList", newBoardList);
+			
+			//index 페이지로 포워딩
+			nextPage = "main.jsp";
+		}else if(command.equals("/memberList.do")) { //회원 목록 조회
 			ArrayList<Member> memberList = memberDAO.getMemberList();
 			
 			//모델 생성 및 보내기
@@ -128,7 +141,7 @@ public class MainController extends HttpServlet {
 		} else if(command.equals("/logout.do")) {//로그아웃 요청
 			//세션 모두 삭제(해제)
 			session.invalidate();
-			nextPage = "/index.jsp";
+			nextPage = "index.jsp";
 		} else if(command.equals("/deleteMember.do")) { //회원 삭제 요청
 			String memberId = request.getParameter("memberId");
 			memberDAO.deleteMember(memberId); //회원 삭제 처리
