@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<script src="https://kit.fontawesome.com/187dabceeb.js" crossorigin="anonymous"></script>
 <header>
 	<div id="logo">
 		<h1><a href="index.jsp">Gangnam</a></h1>

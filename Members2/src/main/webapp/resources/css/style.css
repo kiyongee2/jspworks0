@@ -124,6 +124,14 @@ footer{height: 80px; border-top: 2px solid #222;}
 #board_detail table textarea{width: 520px; height: 350px; resize: none; 
 	padding: 5px; line-height: 1.5; font-family: '맑은고딕'}
 #board_detail table button[type='button']{width: 80px; height: 30px;}
+#board_detail .reply{border-top: 1px dotted #ccc; padding: 10px 0;
+	line-height: 1.5; margin-top: 12px;}
+#board_detail .reply p{color: #444; font-size: 0.9em;}
+#board_detail .reply p:nth-of-type(2){margin-top: 16px;}
+#board_detail .replyLogin{background-color: #eee; padding: 16px;
+	text-align: center;}
+#board_detail .replyLogin a{color: blue;}
+#board_detail .replyLogin a:hover{text-decoration: underline;}
 
 /* board_update 스타일 */
 #board_update{width: 550px; margin: 40px auto 100px;}
