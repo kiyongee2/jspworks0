@@ -70,15 +70,19 @@
 			<c:forEach items="${replyList}" var="reply">
 			<div>
 				<p>${reply.rcontent} </p>
-				<p>작성자: ${reply.replyer} </p>
+				<p>작성자: ${reply.replyer} (작성일: ${reply.rdate}) </p>
 			</div>
 			</c:forEach>
 			<!-- 댓글 등록 -->
 			<form action="/addReply.do" method="post">
+				<p>${sessionId}</p> <!-- replyer -->
+				<p><input type="hidden" name="bnum" value="${board.bnum}">
+				<p><input type="hidden" name="replyer" value="${reply.replyer}">
 				<p>
 					<textarea name="rcontent" rows="4" cols="64"
 						placeholder="댓글을 남겨주세요"></textarea>
 				</p>
+				
 				<button type="submit">등록</button>
 			</form>
 			

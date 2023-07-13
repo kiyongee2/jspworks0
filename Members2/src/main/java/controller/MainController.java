@@ -236,11 +236,26 @@ public class MainController extends HttpServlet {
 			
 			boardDAO.updateBoard(updateBoard); //수정 처리
 			nextPage = "/boardList.do";
+		}else if(command.equals("/addReply.do")) {
+			//댓글 폼에 입력(관련)된 데이터 가져옴
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			String rcontent = request.getParameter("rcontent");
+			String replyer = request.getParameter("replyer");
+			
+			Reply newReply = new Reply();
+			newReply.setBnum(bnum);
+			newReply.setRcontent(rcontent);
+			newReply.setReplyer(replyer);
+			
+			replyDAO.addReply(newReply);  //댓글 등록 처리
 		}
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()
 		if(command.equals("/addBoard.do")) {
 			response.sendRedirect("/boardList.do");
+		}else if(command.equals("/addReply.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			response.sendRedirect("/boardView.do?bnum=" + bnum);
 		}
 		else {
 			RequestDispatcher dispatcher = 

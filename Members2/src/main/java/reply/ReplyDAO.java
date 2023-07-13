@@ -42,4 +42,33 @@ public class ReplyDAO {
 		}
 		return replyList;
 	}
+	
+	//댓글 등록
+	public void addReply(Reply reply) {
+		conn= JDBCUtil.getConnection();
+		String sql = "insert into t_reply(bnum, rcontent, replyer) "
+				+ "values(?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, reply.getBnum());
+			pstmt.setString(2, reply.getRcontent());
+			pstmt.setString(3, reply.getReplyer());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt);
+		}
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
