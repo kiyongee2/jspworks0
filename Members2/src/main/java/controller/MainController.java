@@ -151,6 +151,15 @@ public class MainController extends HttpServlet {
 			nextPage = "/memberList.do";
 		} else if(command.equals("/memberEvent.do")) { 
 			nextPage = "/member/memberEvent.jsp";
+		} else if(command.equals("/memberUpdateForm.do")) {
+			String memberId = request.getParameter("memberId");
+			Member member = memberDAO.getMember(memberId);
+			
+			//모델 생성
+			request.setAttribute("member", member);
+			
+			//회원 수정 페이지 이동
+			nextPage = "member/memberUpdateForm.jsp";
 		}
 		
 		//게시판 관리
