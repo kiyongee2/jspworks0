@@ -145,6 +145,9 @@ public class MainController extends HttpServlet {
 		} else if(command.equals("/deleteMember.do")) { //회원 삭제 요청
 			String memberId = request.getParameter("memberId");
 			memberDAO.deleteMember(memberId); //회원 삭제 처리
+			//세션 아웃
+			session.invalidate();
+			
 			nextPage = "/memberList.do";
 		} else if(command.equals("/memberEvent.do")) { 
 			nextPage = "/member/memberEvent.jsp";

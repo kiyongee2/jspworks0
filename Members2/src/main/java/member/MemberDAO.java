@@ -48,7 +48,7 @@ public class MemberDAO {
 				member.setPasswd(rs.getString("passwd"));
 				member.setName(rs.getString("name"));
 				member.setGender(rs.getString("gender"));
-				member.setJoinDate(rs.getDate("joindate"));
+				member.setJoinDate(rs.getTimestamp("joindate"));
 				
 				memberList.add(member);  //리스트에 저장
 			}
@@ -74,7 +74,7 @@ public class MemberDAO {
 				member.setPasswd(rs.getString("passwd"));
 				member.setName(rs.getString("name"));
 				member.setGender(rs.getString("gender"));
-				member.setJoinDate(rs.getDate("joindate"));
+				member.setJoinDate(rs.getTimestamp("joindate"));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

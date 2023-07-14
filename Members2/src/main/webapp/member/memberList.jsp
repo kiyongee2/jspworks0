@@ -40,7 +40,7 @@
 					<td><c:out value="${member.gender}" /> </td>
 					<%-- <td><c:out value="${member.joinDate}" /> </td> --%>
 					<td><fmt:formatDate value="${member.joinDate}"
-							pattern="yyyy-MM-dd HH:mm:ss" /> </td>
+							pattern="yyyy-MM-dd hh:mm:ss" /> </td>
 					<td>
 						<a href="/deleteMember.do?memberId=${member.memberId}"
 							onclick="return confirm('정말로 삭제하시겠습니까?')">
