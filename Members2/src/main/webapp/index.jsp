@@ -12,6 +12,5 @@
 	<script>
 		location.href="/index.do"
 	</script>
-	   
 </body>
 </html>

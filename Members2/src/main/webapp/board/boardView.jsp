@@ -79,8 +79,21 @@
 				<!-- 댓글 내용 줄바꿈 -->
 				<p><c:out value="${fn:replace(reply.rcontent, LF, BR)}" 
 							escapeXml="false" />
-				<%-- <p>${reply.rcontent}</p> --%>
-				<p>작성자: ${reply.replyer} (작성일: ${reply.rdate})
+				<p>작성자: ${reply.replyer} 
+				  <c:choose>
+				  	<c:when test="${not empty reply.rupdate}">
+				  		(수정일: ${reply.rupdate})
+				  	</c:when>
+				    <c:otherwise>
+				    	(작성일: ${reply.rdate})
+				    </c:otherwise>
+				  </c:choose>
+				<c:if test="${reply.replyer == sessionId}">
+					<a href="/deleteReply.do?bnum=${board.bnum}&rno=${reply.rno}"
+					   onclick="return confirm('정말로 삭제하시겠습니까?')">삭제</a> |
+					<a href="/replyUpdateForm.do?bnum=${board.bnum}&rno=${reply.rno}">수정</a>
+				</c:if>
+				</p>
 			</div>
 			</c:forEach>
 			<!-- 댓글 등록 -->

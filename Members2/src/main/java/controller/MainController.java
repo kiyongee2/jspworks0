@@ -65,11 +65,11 @@ public class MainController extends HttpServlet {
 		//세션 객체 생성
 		HttpSession session = request.getSession();
 		
-		if(command.equals("/index.do")) {
+		if(command.equals("/index.do")) { //index 페이지 요청
 			//게시글 가져오기
 			ArrayList<Board> boardList = boardDAO.getBoardList();
 			int size = boardList.size(); //게시글의 총수
-			//최신 글 3개를 담은 배열 생성
+			//최신글 3개를 담은 배열 생성
 			Board[] newBoardList = {boardList.get(size-1), boardList.get(size-2), 
 					boardList.get(size-3)};
 			
@@ -77,7 +77,7 @@ public class MainController extends HttpServlet {
 			request.setAttribute("boardList", newBoardList);
 			
 			//index 페이지로 포워딩
-			nextPage = "main.jsp";
+			nextPage = "main.jsp";  //main 페이지로 이동
 		}else if(command.equals("/memberList.do")) { //회원 목록 조회
 			ArrayList<Member> memberList = memberDAO.getMemberList();
 			
@@ -261,12 +261,37 @@ public class MainController extends HttpServlet {
 			newReply.setReplyer(replyer);
 			
 			replyDAO.addReply(newReply);  //댓글 등록 처리
+		}else if(command.equals("/deleteReply.do")) { //댓글 삭제
+			int rno = Integer.parseInt(request.getParameter("rno"));
+			replyDAO.deleteReply(rno);  //삭제 처리
+		}else if(command.equals("/replyUpdateForm.do")) { //댓글 수정폼 요청
+			//요청한 댓글 불러오기(상세 보기)
+			int rno = Integer.parseInt(request.getParameter("rno"));
+			Reply reply = replyDAO.getReply(rno);
+			//모델 생성
+			request.setAttribute("reply", reply);
+			//댓글 수정 폼 페이지로 이동
+			nextPage = "board/replyUpdateForm.jsp";
+		}else if(command.equals("/updateReply.do")) {//댓글 수정 처리
+			//폼에 관련한 데이터 받아오기
+			int rno = Integer.parseInt(request.getParameter("rno"));
+			String rcontent = request.getParameter("rcontent");
+			
+			//댓글 객체에 저장
+			Reply reply = new Reply();
+			reply.setRno(rno);
+			reply.setRcontent(rcontent);
+			
+			replyDAO.updateReply(reply);  //댓글 수정 처리
 		}
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()
 		if(command.equals("/addBoard.do")) {
 			response.sendRedirect("/boardList.do");
 		}else if(command.equals("/addReply.do")) {
+			int bnum = Integer.parseInt(request.getParameter("bnum"));
+			response.sendRedirect("/boardView.do?bnum=" + bnum);
+		}else if(command.equals("/deleteReply.do") || command.equals("/updateReply.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));
 			response.sendRedirect("/boardView.do?bnum=" + bnum);
 		}

@@ -153,3 +153,16 @@ footer{height: 80px; border-top: 2px solid #222;}
 	padding: 5px; line-height: 1.5; font-family: '맑은고딕'}
 #board_update table button[type='button']{width: 80px; height: 30px;}
 
+/* replyUpdateForm 스타일 */
+#reply_update{width: 550px; margin: 40px auto 100px;}
+#reply_update h2{margin-bottom: 10px;}
+#reply_update p{margin: 10px 0; font-size: 0.9em;}
+#reply_update textarea{width: 520px; height: 200px; resize: none; 
+	padding: 5px; line-height: 1.5; font-family: '맑은고딕'}
+#reply_update input[type='text']{width: 520px; height: 25px; padding: 5px;}
+#reply_update button{padding: 5px 10px;}
+
+
+
+
+
