@@ -75,7 +75,7 @@ footer{height: 80px; border-top: 2px solid #222;}
 #member_update form input[type='text']{padding: 5px; width: 250px; font-size: 0.8em;}
 #member_update form input[type='password']{padding: 5px; width: 250px; font-size: 0.8em;}
 #member_update form li label.radio{width: 80px; }
-#member_update form li input[type='radio']{margin-right: 5px;}
+#member_update form li input[type='radio']{margin-right: 4px;}
 #member_update form .button{width: 600px; height: 50px; text-align: center;}
 #member_update form input[type='button']{width: 80px; height: 40px; margin: 20px 5px;}
 #member_update form input[type='reset']{width: 80px; height: 40px; margin-top: 20px;}
