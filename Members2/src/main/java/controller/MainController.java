@@ -148,10 +148,10 @@ public class MainController extends HttpServlet {
 			//세션 아웃
 			session.invalidate();
 			
-			nextPage = "/memberList.do";
+			nextPage = "/index.jsp";
 		} else if(command.equals("/memberEvent.do")) { 
 			nextPage = "/member/memberEvent.jsp";
-		} else if(command.equals("/memberUpdateForm.do")) {
+		} else if(command.equals("/memberUpdateForm.do")) { //회원 수정 페이지 요청
 			String memberId = request.getParameter("memberId");
 			Member member = memberDAO.getMember(memberId);
 			
@@ -160,6 +160,22 @@ public class MainController extends HttpServlet {
 			
 			//회원 수정 페이지 이동
 			nextPage = "member/memberUpdateForm.jsp";
+		} else if(command.equals("/updateMember.do")) {
+			//회원 수정 폼에 입력된 자료 받기
+			String memberId = request.getParameter("memberId");
+			String passwd = request.getParameter("passwd1");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			
+			//Meber 객체 생성
+			Member member = new Member();
+			member.setMemberId(memberId);
+			member.setPasswd(passwd);
+			member.setName(name);
+			member.setGender(gender);
+			
+			//memberDAO의 updateMember()를 호출
+			memberDAO.updateMember(member);
 		}
 		
 		//게시판 관리
@@ -298,7 +314,10 @@ public class MainController extends HttpServlet {
 		}
 		
 		//포워딩 - 새로고침 자동 저장 오류 해결 : response.sendRedirect()
-		if(command.equals("/addBoard.do")) {
+		if(command.equals("/updateMember.do")) { //수정후 회원정보 페이지 이동
+			String memberId = request.getParameter("memberId");
+			response.sendRedirect("/memberView.do?memberId=" + memberId);
+		}else if(command.equals("/addBoard.do")) { //게시글 등록후 게시글 목록으로 이동
 			response.sendRedirect("/boardList.do");
 		}else if(command.equals("/addReply.do")) {
 			int bnum = Integer.parseInt(request.getParameter("bnum"));

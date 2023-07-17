@@ -26,7 +26,6 @@ function checkID(){
 		success: function(data){ //서블릿에서 응답 받음
 			console.log(data);
 			if($.trim(data)=='usable'){ //$.trim()- 앞,뒤 공백을 없애줌
-				$("#btnChk").attr("value", "Y");  //체크 버튼이 눌러짐
 				$("#check").text("사용 가능한 ID입니다.");
 				$("#check").css({"color": "blue", "padding": "5px 0 0 10px"});
 			}else{
@@ -45,8 +44,7 @@ function checkMember(){
 	let id = form.memberId.value;
 	let pw1 = form.passwd1.value;
 	let pw2 = form.passwd2.value;
-	let name = form.name.value;
-	let btnChk = form.btnChk.value;  //'Y' or 'N' 
+	let name = form.name.value; 
 	
 	//정규 표현식
 	let pw_pat1 = /[0-9]+/   //숫자만
@@ -71,9 +69,6 @@ function checkMember(){
 		alert("이름을 입력해 주세요");
 		form.name.focus();
 		return false;
-	}else if(btnChk == 'N'){
-		alert("ID 중복을 확인해 주세요.");
-		return false;
 	}else{
 	    form.submit();
 	}
@@ -92,17 +87,14 @@ function checkMember(){
 			<a href="?language=ko">한국어</a> | 
 			<a href="?language=en">English</a>
 		</div>
-		<h2><fmt:message key="signup.title" /></h2>
+		<h2><fmt:message key="signup.title2" /></h2>
 		<form action="/updateMember.do" method="post" name="member">
 			<fieldset>
 				<ul>
 					<li>
 						<label for="memberId"><fmt:message key="signup.id" /></label>
 						<input type="text" id="memberId" name="memberId"
-							value="${member.memberId}">
-						<button type="button" id="btnChk" value="N" 
-								class="btn_check" onclick="checkID()" ><fmt:message key="signup.duplicate" /></button>
-						<p id="check"></p>
+							value="${member.memberId}" readonly>
 					</li>
 					<li>
 						<label for="passwd1"><fmt:message key="signup.passwd1" /> </label>
@@ -120,7 +112,7 @@ function checkMember(){
 							value="${member.name}">
 					</li>
 					<li>
-						<label for="name"><fmt:message key="signup.gender" /> </label>
+						<label for="gender"><fmt:message key="signup.gender" /> </label>
 						<label class="radio">
 							<input type="radio" name="gender" value="남" checked><fmt:message key="signup.man" />
 						</label>
@@ -131,7 +123,7 @@ function checkMember(){
 				</ul>
 			</fieldset>
 			<div class="button">
-				<input type="button" value="<fmt:message key="signup.join" />" onclick="checkMember()">
+				<input type="button" value="<fmt:message key="signup.save" />" onclick="checkMember()">
 				<input type="reset" value="<fmt:message key="signup.cancel" />">
 			</div>
 			</form>
