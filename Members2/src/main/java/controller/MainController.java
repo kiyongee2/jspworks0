@@ -154,9 +154,11 @@ public class MainController extends HttpServlet {
 		} else if(command.equals("/memberUpdateForm.do")) { //회원 수정 페이지 요청
 			String memberId = request.getParameter("memberId");
 			Member member = memberDAO.getMember(memberId);
+			String language = request.getParameter("language");
 			
 			//모델 생성
 			request.setAttribute("member", member);
+			request.setAttribute("language", language);
 			
 			//회원 수정 페이지 이동
 			nextPage = "member/memberUpdateForm.jsp";
@@ -180,6 +182,23 @@ public class MainController extends HttpServlet {
 		
 		//게시판 관리
 		if(command.equals("/boardList.do")) {
+			//검색 처리
+			String _field = request.getParameter("field");
+			String _kw = request.getParameter("kw");
+			
+			String field = "title"; //쿼리값이 전달되지 않을 경우 기본값 사용
+			if(_field != null) { //쿼리값이 있는 경우
+				field = _field;
+			}
+			
+			String kw = "";  //쿼리값이 전달되지 않을 경우 기본값 사용
+			if(_kw != null) { //쿼리값이 있는 경우
+				kw = _kw;
+			}
+			
+			//검색 처리 메서드 호출
+			//ArrayList<Board> boardList = boardDAO.getBoardList(field, kw);
+			
 			//페이지 처리
 			String pageNum = request.getParameter("pageNum");
 			if(pageNum == null) { //pageNum이 없으면 기본 1페이지
@@ -200,13 +219,15 @@ public class MainController extends HttpServlet {
 			endPage = (total % 10 == 0) ? endPage : endPage + 1;
 			
 			//게시글 목록보기 함수 호출
-			ArrayList<Board> boardList = boardDAO.getBoardList(startRow, pageSize);
+			ArrayList<Board> boardList = boardDAO.getBoardList(field, kw, startRow, pageSize);
 			
 			//모델 생성
 			request.setAttribute("boardList", boardList);
 			request.setAttribute("currentPage", currentPage);
 			request.setAttribute("startPage", startPage);
 			request.setAttribute("endPage", endPage);
+			request.setAttribute("field", field);
+			request.setAttribute("kw", kw);
 			
 			nextPage = "/board/boardList.jsp";
 		}else if(command.equals("/boardForm.do")) {

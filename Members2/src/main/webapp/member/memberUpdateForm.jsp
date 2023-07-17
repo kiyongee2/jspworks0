@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
@@ -77,15 +78,15 @@ function checkMember(){
 </head>
 <body>
 	<!-- 다국어 Locale 설정 -->
-	<fmt:setLocale value="${param.language}"/>
+	<fmt:setLocale value="${language}"/>
 	<fmt:bundle basename="bundle.message">
 	<jsp:include page="../header.jsp" />
 	<div id= "container">
-	    <section id="register">
+	    <section id="member_update">
 	    <!-- 다국어 메뉴 영역 -->
 		<div class="language">
-			<a href="?language=ko">한국어</a> | 
-			<a href="?language=en">English</a>
+			<a href="/memberUpdateForm.do?memberId=${member.memberId}&language=ko">한국어</a> | 
+			<a href="/memberUpdateForm.do?memberId=${member.memberId}&language=en">English</a>
 		</div>
 		<h2><fmt:message key="signup.title2" /></h2>
 		<form action="/updateMember.do" method="post" name="member">
@@ -113,12 +114,18 @@ function checkMember(){
 					</li>
 					<li>
 						<label for="gender"><fmt:message key="signup.gender" /> </label>
+						<c:if test="${member.gender eq '남'}">
+							<label class="radio">
+								<input type="radio" name="gender" value="남" checked><fmt:message key="signup.man" />
+								<input type="radio" name="gender" value="여"><fmt:message key="signup.waman" />
+							</label>
+						</c:if>
+						<c:if test="${member.gender eq '여'}">
 						<label class="radio">
-							<input type="radio" name="gender" value="남" checked><fmt:message key="signup.man" />
+							<input type="radio" name="gender" value="남"><fmt:message key="signup.man" />
+							<input type="radio" name="gender" value="여" checked><fmt:message key="signup.woman" />
 						</label>
-						<label class="radio">
-							<input type="radio" name="gender" value="여"><fmt:message key="signup.woman" />
-						</label>
+						</c:if>
 					</li>
 				</ul>
 			</fieldset>
