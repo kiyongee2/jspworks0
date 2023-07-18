@@ -28,4 +28,9 @@ public class ProductService {
 		//values() - 키에 검색된 값임.
 		return new ArrayList<>(products.values());
 	}
+	
+	//상품 1개 보기(상세 보기)
+	public Product getProduct(String pid) {
+		return products.get(pid);
+	}
 }

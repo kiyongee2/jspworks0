@@ -40,6 +40,11 @@ public class ProductController extends HttpServlet {
 			
 			nextPage = "/product/productList.jsp";
 		}else if(action.equals("info")) {
+			String pid = request.getParameter("pid");
+			
+			Product product = service.getProduct(pid);
+			
+			request.setAttribute("product", product);
 			
 			nextPage = "/product/productInfo.jsp";
 		}
@@ -47,12 +52,10 @@ public class ProductController extends HttpServlet {
 		RequestDispatcher dispatcher =
 				request.getRequestDispatcher(nextPage);
 		dispatcher.forward(request, response);
-		
 	}
 	
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
 	}
 

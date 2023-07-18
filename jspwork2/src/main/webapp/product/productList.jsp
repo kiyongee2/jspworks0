@@ -28,7 +28,11 @@
 		 		varStatus="i">
 		 	<tr>
 		 		<td>${i.count}</td>
-		 		<td>${product.pname}</td>
+		 		<td>
+		 			<a href="/jspwork2/pcontrol?action=info&pid=${product.pid}">
+		 				${product.pname}
+		 			</a>
+		 		</td>
 		 		<td>${product.maker}</td>
 		 		<td>${product.price}</td>
 		 	</tr>
