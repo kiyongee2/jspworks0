@@ -15,7 +15,7 @@
 		<h3 class="text-left mx-4 my-4">상품 등록</h3>
 		<div class="row mx-5">
 			<form action="/addProduct.do" method="post"
-			  encType="multipart/form-data" name="newProduct">
+			      encType="multipart/form-data" name="newProduct">
 				<div class="form-group row">
 					<label class="col-sm-2">상품 코드</label>
 					<div class="col-sm-3 my-2">

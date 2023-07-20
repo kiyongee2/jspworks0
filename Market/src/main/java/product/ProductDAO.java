@@ -71,4 +71,30 @@ public class ProductDAO {
 		}
 		return product;
 	}
+	
+	//상품 등록 
+	public void addProduct(Product product) {
+		conn = JDBCUtil.getConnection();
+		String sql = "INSERT INTO product(p_id, p_name, p_unitPrice, p_description, "
+				+ "p_category, p_manufacturer, p_unitsInStock, p_condition, p_productImage) "
+				+ "VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, product.getProductId());
+			pstmt.setString(2, product.getPname());
+			pstmt.setInt(3, product.getUnitPrice());
+			pstmt.setString(4, product.getDescription());
+			pstmt.setString(5, product.getCategory());
+			pstmt.setString(6, product.getManufacturer());
+			pstmt.setLong(7, product.getUnitsInStock());
+			pstmt.setString(8, product.getCondition());
+			pstmt.setString(9, product.getProductImage());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+	}
+	
 }
