@@ -45,6 +45,17 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("productList", productList);
 			
 			nextPage = "/product/productList.jsp";
+		}else if(command.equals("/productInfo.do")) {
+			String id = request.getParameter("productId");
+			//상품 정보 메서드 호출
+			Product product = productDAO.getProduct(id);
+			
+			//모델 생성
+			request.setAttribute("product", product);
+			
+			nextPage = "/product/productInfo.jsp";
+		}else if(command.equals("/productForm.do")) {
+			nextPage = "/product/productForm.jsp";
 		}
 		
 		//페이지 포워딩
