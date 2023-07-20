@@ -113,6 +113,14 @@ public class ProductController extends HttpServlet {
 			request.setAttribute("edit", edit);
 			
 			nextPage = "/product/editProduct.jsp";
+		}else if(command.equals("/deleteProduct.do")) {
+			String id = request.getParameter("productId");
+			String edit = request.getParameter("edit");
+			
+			productDAO.deleteProduct(id);
+			
+			//삭제 후 삭제 페이지로 이동함
+			nextPage = "/editProduct.do?edit=" + edit;
 		}
 		
 		//페이지 포워딩

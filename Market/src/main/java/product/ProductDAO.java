@@ -97,4 +97,18 @@ public class ProductDAO {
 		}
 	}
 	
+	//상품 삭제
+	public void deleteProduct(String productId) {
+		conn = JDBCUtil.getConnection();
+		String sql = "DELETE FROM product WHERE p_id = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, productId);
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt);
+		}
+	}
 }
