@@ -50,6 +50,7 @@
 				<div class="form-group row">
 					<div class="col-sm-3 my-2">
 						<input type="submit" value="등록" class="btn btn-primary">
+						<a href="/checkOutCancel.do" class="btn btn-secondary">취소</a>
 					</div>
 				</div>
 			</form>

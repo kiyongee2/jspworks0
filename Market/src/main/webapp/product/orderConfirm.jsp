@@ -20,11 +20,11 @@
 			   주소: ${shipping_addressName}
 		   </div>
 		   <div class="col-8" align="right">
-		   	<p><em>배송일: ${shipping_addressName}</em>
+		   	<p><em>배송일: ${shipping_shippingDate}</em>
 		   </div>
 		</div> <!-- row 끝 -->
 		<div>
-			<table class="table table-hover my-3">
+			<table class="table table-hover my-5">
 				<tr>
 					<th class="text-center">상품</th>
 					<th class="text-center">수량</th>

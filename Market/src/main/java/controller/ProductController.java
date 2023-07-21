@@ -70,7 +70,6 @@ public class ProductController extends HttpServlet {
 		}else if(command.equals("/productForm.do")) {
 			nextPage = "/product/productForm.jsp";
 		}else if(command.equals("/addProduct.do")) {
-			
 			String realFolder = "C:/Users/Administrator/git/jspworks0/Market/src/main/webapp/upload";
 			
 			MultipartRequest multi = new MultipartRequest(request, realFolder,
@@ -124,13 +123,68 @@ public class ProductController extends HttpServlet {
 			nextPage = "/product/editProduct.jsp";
 		}else if(command.equals("/deleteProduct.do")) {
 			String id = request.getParameter("productId");
-			String edit = request.getParameter("edit");
 			
 			productDAO.deleteProduct(id);
 			
 			//삭제 후 삭제 페이지로 이동함
-			nextPage = "/editProduct.do?edit=" + edit;
-		}else if(command.equals("/addCart.do")) { //상품 주문 요청
+			nextPage = "/editProduct.do?edit=delete";
+		}else if(command.equals("/updateProductForm.do")) {
+			String id = request.getParameter("productId");
+			
+			Product product = productDAO.getProduct(id);
+			
+			//모델 생성
+			request.setAttribute("product", product);
+			
+			nextPage = "/product/updateProductForm.jsp"; 
+		}else if(command.equals("/updateProduct.do")) {
+			String realFolder = "C:/Users/Administrator/git/jspworks0/Market/src/main/webapp/upload";
+			
+			MultipartRequest multi = new MultipartRequest(request, realFolder,
+					5*1024*1024, "utf-8", new DefaultFileRenamePolicy());
+			
+			//name 속성 가져오기
+			String id = multi.getParameter("productId");
+			String pname = multi.getParameter("pname");
+			int unitPrice = Integer.parseInt(multi.getParameter("unitPrice"));
+			String description = multi.getParameter("description");
+			String category = multi.getParameter("category");
+			String manufacturer = multi.getParameter("manufacturer");
+			long unitsInStock = Long.parseLong(multi.getParameter("unitsInStock"));
+			String condition = multi.getParameter("condition");
+			
+			//productImage 속성 가져오기
+			String name = "";
+			String productImage = "";
+			Enumeration<String> files = multi.getFileNames();
+			if(files.hasMoreElements()) {
+				name = files.nextElement();  //파일이 있으면 이름을 저장
+				productImage = multi.getFilesystemName(name); //서버에 저장된 파일 이름을 저장
+			}
+			
+			//Product 객체 생성
+			Product product = new Product();
+			product.setProductId(id);
+			product.setPname(pname);
+			product.setUnitPrice(unitPrice);
+			product.setDescription(description);
+			product.setCategory(category);
+			product.setManufacturer(manufacturer);
+			product.setUnitsInStock(unitsInStock);
+			product.setCondition(condition);
+			product.setProductImage(productImage);
+			
+			if(productImage != null) {
+				productDAO.updateProduct(product);
+			}else {
+				productDAO.updateProductNoImage(product);
+			}
+			
+			nextPage = "/editProduct.do?edit=update";
+		}
+		
+		
+		else if(command.equals("/addCart.do")) { //상품 주문 요청
 			String id = request.getParameter("productId");
 			
 			//상품 목록
@@ -303,6 +357,54 @@ public class ProductController extends HttpServlet {
 		
 			//이동할 페이지 - 주문 완료
 			nextPage = "/product/orderConfirm.jsp";
+		}else if(command.equals("/thanksCustomer.do")) {
+			
+			String shipping_cartId = "";   //주문번호
+			String shipping_shippingDate = "";  //배송일
+			
+			Cookie[] cookies = request.getCookies();
+			
+			//쿠키 이름과 값을 가져와서 복호화함
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					Cookie cookie = cookies[i];
+					String cname = cookie.getName();
+					if(cname.equals("Shipping_cartId"))
+						shipping_cartId = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_shippingDate"))
+						shipping_shippingDate = URLDecoder.decode(cookie.getValue(), "utf-8");
+				}
+			}
+			
+			//모델 생성
+			request.setAttribute("shipping_cartId", shipping_cartId);
+			request.setAttribute("shipping_shippingDate", shipping_shippingDate);
+			
+			//모든 세션 삭제 - 장바구니 비움
+			session.invalidate();
+			
+			//모든 쿠키 삭제
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					Cookie cookie = cookies[i];
+					String cname = cookie.getName();
+					if(cname.equals("Shipping_cartId"))
+						cookie.setMaxAge(0); //유효 기간을 0으로 초기화(쿠키 삭제)
+					if(cname.equals("Shipping_name"))
+						cookie.setMaxAge(0);
+					if(cname.equals("Shipping_shippingDate"))
+						cookie.setMaxAge(0);
+					if(cname.equals("Shipping_country"))
+						cookie.setMaxAge(0);
+					if(cname.equals("Shipping_zipCode"))
+						cookie.setMaxAge(0);
+					if(cname.equals("Shipping_addressName"))
+						cookie.setMaxAge(0);
+				}
+			}
+			nextPage = "/product/thanksCustomer.jsp";
+		}else if(command.equals("/checkOutCancel.do")) {
+			nextPage = "/product/checkOutCancel.jsp";
 		}
 		
 		//페이지 포워딩
