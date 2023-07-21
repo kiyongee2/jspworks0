@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -247,9 +248,61 @@ public class ProductController extends HttpServlet {
 			response.addCookie(zipCode);
 			response.addCookie(addressName);
 			
+			//쿠키 받아서 인코딩 -> 디코딩 -> 모델로 보내기
+			//변수 선언
+			String shipping_cartId = "";   //주문번호
+			String shipping_name = "";     //주문자 이름
+			String shipping_shippingDate = "";  //배송일
+			String shipping_country = "";   //국가
+			String shipping_zipCode = "";   //우편번호
+			String shipping_addressName = ""; //주소
+			
+			Cookie[] cookies = request.getCookies(); //쿠키를 받을 배열 생성
+			if(cookies != null) {
+				for(int i=0; i<cookies.length; i++) {
+					Cookie cookie = cookies[i];
+					String cname = cookie.getName(); //쿠키 이름
+					if(cname.equals("Shipping_cartId")) //쿠키이름이 같으면 쿠키값을 복원(디코딩)
+						shipping_cartId = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_name")) 
+						shipping_name = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_shippingDate")) 
+						shipping_shippingDate = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_country")) 
+						shipping_country = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_zipCode"))
+						shipping_zipCode = URLDecoder.decode(cookie.getValue(), "utf-8");
+					if(cname.equals("Shipping_addressName")) 
+						shipping_addressName = URLDecoder.decode(cookie.getValue(), "utf-8");
+				}
+			}
+			
+			//장바구니 가져오기 및 세션 유지
+			List<Product> cartList = (ArrayList)session.getAttribute("cartList");
+			if(cartList == null) {
+				cartList = new ArrayList<>();
+			}
+			
+			//총합계 계산하기
+			int total = 0, sum = 0;  //소계, 총계
+			for(int i=0; i<cartList.size(); i++) {
+				Product product = cartList.get(i);
+				total = product.getUnitPrice() * product.getQuantity(); //가격x수량
+				sum += total;
+			}
+			
+			//모델 생성(배송 관련)
+			request.setAttribute("shipping_name", shipping_name);
+			request.setAttribute("shipping_shippingDate", shipping_shippingDate);
+			request.setAttribute("shipping_zipCode", shipping_zipCode);
+			request.setAttribute("shipping_addressName", shipping_addressName);
+			
+			//상품 관련 모델 생성
+			request.setAttribute("cartList", cartList);
+			request.setAttribute("sum", sum);
+		
 			//이동할 페이지 - 주문 완료
 			nextPage = "/product/orderConfirm.jsp";
-			
 		}
 		
 		//페이지 포워딩

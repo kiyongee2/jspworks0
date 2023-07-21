@@ -25,7 +25,8 @@
 				<div class="form-group row">
 					<label class="col-sm-2">배송일</label>
 					<div class="col-sm-3 my-2">
-						<input type="text" name="shippingDate" class="form-control">
+						<input type="text" name="shippingDate" class="form-control"
+						     placeholder="yyyy/mm/dd">
 					</div>
 				</div>
 				<div class="form-group row">
