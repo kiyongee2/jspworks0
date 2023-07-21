@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
@@ -9,6 +10,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -183,18 +185,82 @@ public class ProductController extends HttpServlet {
 				sum += total;
 			}
 			
-			//모델 생생
+			//주문하기에 필요한 cartId를 생성
+			String cartId = session.getId();
+			
+			//모델 생성
 			request.setAttribute("cartList", cartList);
 			request.setAttribute("sum", sum);
+			request.setAttribute("cartId", cartId);
 			
 			nextPage = "/product/cart.jsp";
+		}else if(command.equals("/deleteCart.do")) { //장바구니(상품) 삭제 요청
+			//세션 해제 
+			session.invalidate();
+		}else if(command.equals("/removeCart.do")) {
+			String id = request.getParameter("productId");
+			
+			//장바구니 가져오기 및 세션 유지
+			List<Product> cartList = (ArrayList)session.getAttribute("cartList");
+			
+			Product selProduct = new Product();  // 삭제할 품목 객체
+			for(int i=0; i<cartList.size(); i++) {
+				selProduct = cartList.get(i);
+				if(selProduct.getProductId().equals(id)) {
+					cartList.remove(selProduct);  //요청 아이디와 일치하면 삭제
+				}
+			}
+		}else if(command.equals("/shippingInfo.do")) {
+			String cartId = request.getParameter("cartId");
+			//cartId 모델 생성후 보내기
+			request.setAttribute("cartId", cartId);
+			
+			nextPage = "/product/shippingInfo.jsp";
+		}else if(command.equals("/processShippingInfo.do")) {
+			//쿠키 발행 - Cookie(쿠키이름, 쿠키값)
+			Cookie shippingId = new Cookie("Shipping_cartId", 
+					 URLEncoder.encode(request.getParameter("cartId"), "utf-8"));
+			Cookie name = new Cookie("Shipping_name", 
+					URLEncoder.encode(request.getParameter("name"), "utf-8"));
+			Cookie shippingDate = new Cookie("Shipping_shippingDate", 
+					URLEncoder.encode(request.getParameter("shippingDate"), "utf-8"));
+			Cookie country = new Cookie("Shipping_country", 
+					URLEncoder.encode(request.getParameter("country"), "utf-8"));
+			Cookie zipCode = new Cookie("Shipping_zipCode", 
+					URLEncoder.encode(request.getParameter("zipCode"), "utf-8"));
+			Cookie addressName = new Cookie("Shipping_addressName", 
+					URLEncoder.encode(request.getParameter("addressName"), "utf-8"));
+			
+			//쿠키 유효기간 1일
+			shippingId.setMaxAge(24*60*60);
+			name.setMaxAge(24*60*60);
+			shippingDate.setMaxAge(24*60*60);
+			country.setMaxAge(24*60*60);
+			zipCode.setMaxAge(24*60*60);
+			addressName.setMaxAge(24*60*60);
+			
+			//클라이언트 컴으로 쿠키 보내기
+			response.addCookie(shippingId);
+			response.addCookie(name);
+			response.addCookie(shippingDate);
+			response.addCookie(country);
+			response.addCookie(zipCode);
+			response.addCookie(addressName);
+			
+			//이동할 페이지 - 주문 완료
+			nextPage = "/product/orderConfirm.jsp";
+			
 		}
 		
 		//페이지 포워딩
 		if(command.equals("/addCart.do")) { //상품 주문 요청
 			String id = request.getParameter("productId");
 			response.sendRedirect("/productInfo.do?productId=" + id);
-		}else {
+		}else if(command.equals("/deleteCart.do") || command.equals("/removeCart.do")) { 
+			response.sendRedirect("/cart.do"); //장바구니 전체 및 개별 품목 삭제후 페이지 이동
+		}
+		
+		else {
 			RequestDispatcher dispatcher = 
 					request.getRequestDispatcher(nextPage);
 			dispatcher.forward(request, response);

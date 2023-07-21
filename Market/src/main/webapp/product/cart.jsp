@@ -17,10 +17,11 @@
 		   <table style="width: 100%">
 		   		<tr>
 		   			<td align="left">
-		   				<a href="" class="btn btn-danger">삭제하기</a>
+		   				<a href="/deleteCart.do" class="btn btn-danger">삭제하기</a>
 		   			</td>
 		   			<td align="right">
-		   				<a href="" class="btn btn-success">주문하기</a>
+		   				<a href="/shippingInfo.do?cartId=${cartId}" 
+		   					class="btn btn-success">주문하기</a>
 		   			</td>
 		   		</tr>
 		   </table> 
@@ -47,6 +48,7 @@
 							</tr>
 					</tbody>
 				</table>
+				<a href="/productList.do" class="btn btn-secondary">&laquo; 쇼핑 계속하기</a>
 			</div>
 		</div>
 	</div>

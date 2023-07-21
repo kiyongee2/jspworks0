@@ -8,6 +8,7 @@
 <title>상품 등록</title>
 <link rel="stylesheet" href="resources/css/bootstrap.css">
 <script src="resources/js/bootstrap.js"></script>
+<script src="resources/js/validation.js"></script>
 </head>
 <body>
 	<jsp:include page="../header.jsp" />
@@ -74,8 +75,8 @@
 				</div>
 				<div class="form-group row">
 					<div class="col-sm-3 my-2">
-						<input type="submit" value="등록" 
-							class="btn btn-primary">
+						<input type="button" value="등록" class="btn btn-primary"
+							   onclick="checkAddProduct()">
 					</div>
 				</div>
 			</form>
