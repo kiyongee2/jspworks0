@@ -455,12 +455,37 @@ public class MainController extends HttpServlet {
 			newMember.setPhone(phone);
 			newMember.setAddress(address);
 			
+			session.setAttribute("sessionId", mid); //자동 로그인
+			
 			//dao의 addMember() 함수 호출
 			memberDAO.addMember(newMember);
 			
 			nextPage = "/index.jsp";
 		}else if(command.equals("/loginForm.do")) {
 			nextPage = "/member/loginForm.jsp";
+		}else if(command.equals("/processLogin.do")) {
+			//로그인 폼에 입력된 데이터 받기
+			String mid = request.getParameter("mid");
+			String passwd = request.getParameter("passwd");
+			
+			//로그인할 member 객체 생성
+			Member loginMember = new Member();
+			loginMember.setMid(mid);
+			loginMember.setPasswd(passwd);
+			
+			//DAO의 checkLogin(loginMember) 호출
+			boolean result = memberDAO.checkLogin(loginMember);
+			if(result) { //result == true
+				session.setAttribute("sessionId", mid); //아이디로 세션 발급
+				nextPage = "/index.jsp";
+			}else {
+				String error = "아이디나 비밀번호를 확인해 주세요";
+				request.setAttribute("error", error);
+				nextPage = "/loginForm.do";
+			}
+		}else if(command.equals("/logout.do")) { //로그 아웃 요청
+			session.invalidate();  //모든 세션 해제
+			nextPage = "/index.jsp";
 		}
 		
 		//페이지 포워딩

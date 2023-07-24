@@ -94,4 +94,57 @@ public class MemberDAO {
 		}
 		return member;
 	}
+	
+	//로그인 체크
+	public boolean checkLogin(Member member) {
+		conn = JDBCUtil.getConnection();
+		String sql = "select * from member where mid = ? and passwd = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, member.getMid());
+			pstmt.setString(2, member.getPasswd());
+			rs = pstmt.executeQuery();
+			if(rs.next())
+				return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		return false;
+	}
+	
+	//ID 중복 체크
+	public int duplicatedID(String mid) {
+		int result = 0;
+		conn = JDBCUtil.getConnection();
+		String sql = "SELECT COUNT(*) AS result "
+				+ "FROM member WHERE mid = ?";
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mid);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("result");  //칼럼이 result인 값을 꺼내옴
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JDBCUtil.close(conn, pstmt, rs);
+		}
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
