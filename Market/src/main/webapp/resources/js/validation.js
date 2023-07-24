@@ -3,8 +3,8 @@
  */
 
  function checkAddProduct(){
-	//alert("check");
-	let id = document.getElementById("productId");
+	alert("check");
+	/*let id = document.getElementById("productId");
 	let name = document.getElementById("pname");
 	let price = document.getElementById("unitPrice");
 	let stock = document.getElementById("unitsInStock");
@@ -46,5 +46,5 @@
 		return false;
 	}else{
 		document.newProduct.submit();
-	}
+	}*/
 }

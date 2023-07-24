@@ -410,6 +410,7 @@ public class ProductController extends HttpServlet {
 		//페이지 포워딩
 		if(command.equals("/addCart.do")) { //상품 주문 요청
 			String id = request.getParameter("productId");
+			//response.sendRedirect("/productInfo.do?productId=" + id);
 			response.sendRedirect("/productInfo.do?productId=" + id);
 		}else if(command.equals("/deleteCart.do") || command.equals("/removeCart.do")) { 
 			response.sendRedirect("/cart.do"); //장바구니 전체 및 개별 품목 삭제후 페이지 이동

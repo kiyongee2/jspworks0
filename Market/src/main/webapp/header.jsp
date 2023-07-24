@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<link rel="stylesheet" href="/resources/css/bootstrap.css">
+<script src="/resources/js/bootstrap.js"></script>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container">
     <a class="navbar-brand" href="index.jsp" style="color: green">GreenShop</a>
@@ -19,6 +21,12 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/editProduct.do?edit=delete">상품 삭제</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/loginForm.do">로그인</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/memberForm.do">회원 가입</a>
         </li>
       </ul>
     </div>

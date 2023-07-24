@@ -6,8 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <title>상품 등록</title>
-<link rel="stylesheet" href="resources/css/bootstrap.css">
-<script src="resources/js/bootstrap.js"></script>
 <script src="resources/js/validation.js"></script>
 </head>
 <body>

@@ -26,11 +26,12 @@
 		</form-login-config>
 	</login-config>
   
-  
-  
-  
-  
-  
+    <!-- 404(페이지가 없을때), 500(코드 오류) -->
+    <error-page>
+    	<error-code>500</error-code>
+        <location>/error/errorPage.jsp</location>
+    </error-page>
+    
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
     <welcome-file>index.jsp</welcome-file>
