@@ -409,13 +409,58 @@ public class MainController extends HttpServlet {
 			nextPage = "/product/thanksCustomer.jsp";
 		}else if(command.equals("/checkOutCancel.do")) {
 			nextPage = "/product/checkOutCancel.jsp";
-		}  //상품 controller
+		}  //상품 controller 끝
 		
-		//회원 controller
+		//회원 controller 시작
 		if(command.equals("/memberList.do")) {  //회원 목록
 			List<Member> memberList = memberDAO.getMemberList();
 			request.setAttribute("memberList", memberList);  //모델 생성
 			nextPage = "/member/memberList.jsp";
+		}else if(command.equals("/memberInfo.do")) { //회원 정보
+			String mid = request.getParameter("mid");
+			Member member = memberDAO.getMember(mid);
+			request.setAttribute("member", member);
+			
+			nextPage = "/member/memberInfo.jsp";
+		}else if(command.equals("/memberForm.do")) { //회원 가입 페이지 요청
+			nextPage = "/member/memberForm.jsp";
+		}else if(command.equals("/addMember.do")) {
+			//회원 가입 폼 데이터 받기
+			String mid = request.getParameter("mid");
+			String passwd = request.getParameter("passwd1");
+			String mname = request.getParameter("mname");
+			String gender = request.getParameter("gender");
+			//birth
+			String birthyy = request.getParameter("birthyy");
+			String birthmm = request.getParameterValues("birthmm")[0];
+			String birthdd = request.getParameter("birthdd");
+			String birth = birthyy + "/" + birthmm + "/" + birthdd;
+			
+			//email
+			String email1 = request.getParameter("email1");
+			String email2 = request.getParameter("email2");
+			String email = email1 + "@" + email2;
+			
+			String phone = request.getParameter("phone");
+			String address = request.getParameter("address");
+			
+			//Member 객체 생성
+			Member newMember = new Member();
+			newMember.setMid(mid);
+			newMember.setPasswd(passwd);
+			newMember.setMname(mname);
+			newMember.setGender(gender);
+			newMember.setBirth(birth);
+			newMember.setEmail(email);
+			newMember.setPhone(phone);
+			newMember.setAddress(address);
+			
+			//dao의 addMember() 함수 호출
+			memberDAO.addMember(newMember);
+			
+			nextPage = "/index.jsp";
+		}else if(command.equals("/loginForm.do")) {
+			nextPage = "/member/loginForm.jsp";
 		}
 		
 		//페이지 포워딩
