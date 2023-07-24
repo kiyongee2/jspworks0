@@ -20,6 +20,7 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import member.Member;
 import member.MemberDAO;
 import product.Product;
 import product.ProductDAO;
@@ -412,6 +413,8 @@ public class MainController extends HttpServlet {
 		
 		//회원 controller
 		if(command.equals("/memberList.do")) {  //회원 목록
+			List<Member> memberList = memberDAO.getMemberList();
+			request.setAttribute("memberList", memberList);  //모델 생성
 			nextPage = "/member/memberList.jsp";
 		}
 		
