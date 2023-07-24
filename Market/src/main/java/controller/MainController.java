@@ -20,17 +20,20 @@ import javax.servlet.http.HttpSession;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import member.MemberDAO;
 import product.Product;
 import product.ProductDAO;
 
 @WebServlet("*.do")
-public class ProductController extends HttpServlet {
+public class MainController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private ProductDAO productDAO;
+	private MemberDAO memberDAO;
 
 	public void init(ServletConfig config) throws ServletException {
 		productDAO = new ProductDAO();
+		memberDAO = new MemberDAO();
 	}
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -405,6 +408,11 @@ public class ProductController extends HttpServlet {
 			nextPage = "/product/thanksCustomer.jsp";
 		}else if(command.equals("/checkOutCancel.do")) {
 			nextPage = "/product/checkOutCancel.jsp";
+		}  //상품 controller
+		
+		//회원 controller
+		if(command.equals("/memberList.do")) {  //회원 목록
+			nextPage = "/member/memberList.jsp";
 		}
 		
 		//페이지 포워딩
